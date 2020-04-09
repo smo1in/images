@@ -1,9 +1,9 @@
 <?php
 
-namespace app\components;
+namespace frontend\modules\user\components;
 
 use Yii;
-use frontend\models\Auth;
+use frontend\modules\user\models\Auth;
 use frontend\models\User;
 use yii\authclient\ClientInterface;
 use yii\helpers\ArrayHelper;
@@ -11,27 +11,24 @@ use yii\helpers\ArrayHelper;
 /**
  * AuthHandler handles successful authentication via Yii auth component
  */
-class AuthHandler
-{
+class AuthHandler {
 
     /**
      * @var ClientInterface
      */
     private $client;
 
-    public function __construct(ClientInterface $client)
-    {
+    public function __construct(ClientInterface $client) {
         $this->client = $client;
     }
 
-    public function handle()
-    {
+    public function handle() {
         if (!Yii::$app->user->isGuest) {
             return;
         }
 
         $attributes = $this->client->getUserAttributes();
-        
+
         $auth = $this->findAuth($attributes);
         if ($auth) {
             /* @var User $user */
@@ -47,8 +44,7 @@ class AuthHandler
      * @param array $attributes
      * @return Auth
      */
-    private function findAuth($attributes)
-    {
+    private function findAuth($attributes) {
         $id = ArrayHelper::getValue($attributes, 'id');
         $params = [
             'source_id' => $id,
@@ -62,8 +58,7 @@ class AuthHandler
      * @param type $attributes
      * @return User|null
      */
-    private function createAccount($attributes)
-    {
+    private function createAccount($attributes) {
         $email = ArrayHelper::getValue($attributes, 'email');
         $id = ArrayHelper::getValue($attributes, 'id');
         $name = ArrayHelper::getValue($attributes, 'name');
@@ -85,8 +80,7 @@ class AuthHandler
         $transaction->rollBack();
     }
 
-    private function createUser($email, $name)
-    {
+    private function createUser($email, $name) {
         return new User([
             'username' => $name,
             'email' => $email,
@@ -97,8 +91,7 @@ class AuthHandler
         ]);
     }
 
-    private function createAuth($userId, $sourceId)
-    {
+    private function createAuth($userId, $sourceId) {
         return new Auth([
             'user_id' => $userId,
             'source' => $this->client->getId(),

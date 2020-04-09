@@ -1,8 +1,9 @@
 <?php
 
-namespace frontend\models;
+namespace frontend\modules\user\models;
 
 use Yii;
+use frontend\models\User;
 
 /**
  * This is the model class for table "auth".
@@ -14,21 +15,19 @@ use Yii;
  *
  * @property User $user
  */
-class Auth extends \yii\db\ActiveRecord
-{
+class Auth extends \yii\db\ActiveRecord {
+
     /**
      * {@inheritdoc}
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return 'auth';
     }
 
     /**
      * {@inheritdoc}
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['user_id', 'source', 'source_id'], 'required'],
             [['user_id'], 'integer'],
@@ -40,8 +39,7 @@ class Auth extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id' => 'ID',
             'user_id' => 'User ID',
@@ -55,8 +53,8 @@ class Auth extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getUser()
-    {
+    public function getUser() {
         return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
+
 }
