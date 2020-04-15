@@ -8,8 +8,8 @@ use frontend\models\User;
 /**
  * This is the model class for table "auth".
  *
- * @property int $id
- * @property int $user_id
+ * @property integer $id
+ * @property integer $user_id
  * @property string $source
  * @property string $source_id
  *
@@ -18,14 +18,14 @@ use frontend\models\User;
 class Auth extends \yii\db\ActiveRecord {
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public static function tableName() {
         return 'auth';
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function rules() {
         return [
@@ -37,7 +37,7 @@ class Auth extends \yii\db\ActiveRecord {
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function attributeLabels() {
         return [
@@ -49,8 +49,6 @@ class Auth extends \yii\db\ActiveRecord {
     }
 
     /**
-     * Gets query for [[User]].
-     *
      * @return \yii\db\ActiveQuery
      */
     public function getUser() {
